@@ -821,6 +821,37 @@ body:before {
 }
 </style>
 
+
+<style id="fix-orange-tag">
+.input-panel:before {
+  content: "INPUT / SIGNAL MATRIX" !important;
+  width: auto !important;
+  max-width: none !important;
+  right: 0 !important;
+  top: 0 !important;
+  padding: 7px 11px !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  display: block !important;
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+  border: 0 !important;
+  border-radius: 0 0 0 9px !important;
+  z-index: 5 !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+}
+</style>
+
+
+<style id="fix-counter-spacing">
+.input-panel .counter {
+  position: relative !important;
+  margin-top: 27px !important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1068,7 +1099,7 @@ body:before {
                       stroke-dasharray="578.05" stroke-dashoffset="578.05"></circle>
             </svg>
             <div class="ring-copy">
-              <small>RETENTION SIGNAL</small>
+              <small>RETENTION PROBABILITY</small>
               <strong id="ringScore">0.0%</strong>
             </div>
           </div>
@@ -1204,14 +1235,14 @@ function showResult(result) {
   verdict.className = `verdict ${isChurn ? "churn" : "stay"}`;
   verdictKicker.textContent = isChurn ? "PREDICTION / ALERT" : "PREDICTION / STABLE";
   riskScore.textContent = `${churnPct.toFixed(1)}%`;
-  ringScore.textContent = `${churnPct.toFixed(1)}%`;
+  ringScore.textContent = `${stayPct.toFixed(1)}%`;
   riskWord.textContent = isChurn ? "CHURN" : "STAY";
   stayValue.textContent = `${stayPct.toFixed(1)}%`;
   churnValue.textContent = `${churnPct.toFixed(1)}%`;
 
   const circumference = 2 * Math.PI * 92;
   riskRing.style.strokeDasharray = `${circumference}`;
-  riskRing.style.strokeDashoffset = `${circumference * (1 - churnPct / 100)}`;
+  riskRing.style.strokeDashoffset = `${circumference * (1 - stayPct / 100)}`;
 
   renderSignals(result.contributions);
 
